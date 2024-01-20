@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Home Page</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      
+    }
+    .con{
+      display: inline;
+    }
+    button {
+      padding: 15px;
+      font-size: 16px;
+      background-color: #cbd5fb;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #cbd5fb;
+    }
+  </style>
+</head>
+<body>
+  <div class="con">
+  <button id="genbtn" onclick="generateChatLink()">Generate Chat Link</button>
+  <P>ChatLink: </P><a  id="chatLink"></a></p>
+</div>
+
+  <script>
+    function generateChatLink() {
+      // Generate a unique chat link (you might want to implement this based on your needs)
+      const chatLink = `http://localhost:3000/chat/${generateRandomString()}`;
+      
+      // Display the chat link on the page
+      document.getElementById('chatLink').href = chatLink;
+      document.getElementById('chatLink').textContent = `${chatLink}`;
+      document.getElementById('genbtn').textContent = 'ReGenerate Link';
+    }
+
+    function generateRandomString() {
+      // Generate a random string for the chat link
+      return Math.random().toString(36).substring(7);
+    }
+  </script>
+</body>
+</html>
