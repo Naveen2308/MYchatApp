@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Chat Home Page</title>
   <style>
     body {
@@ -11,14 +13,20 @@
       margin: 0;
       padding: 0;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
       height: 100vh;
-      
+      width: 100%;
     }
-    .con{
-      display: inline;
+
+    .navbar {
+      margin: 0 !important;
+      width: 100% !important;
+      background-color: #cbd5fb !important;
+      padding-left: 20px !important;
+      padding-right: 20px !important;
     }
+
     button {
       padding: 15px;
       font-size: 16px;
@@ -32,28 +40,65 @@
     button:hover {
       background-color: #cbd5fb;
     }
+    .con {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center; /* Optionally, if you want the text centered */
+  margin-top: 20px; /* Add some top margin for better spacing */
+}
   </style>
 </head>
 <body>
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a href="#" class="navbar-brand">LoGo</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a href="#" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Contact Us</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
   <div class="con">
-  <button id="genbtn" onclick="generateChatLink()">Generate Chat Link</button>
-  <P>ChatLink: </P><a  id="chatLink"></a></p>
-</div>
-
+    <h1>Connect Unbounded: Link and Chat, No Credentials Attached.</h1>
+    
+    <center>
+    <button id="genbtn" onclick="generateChatLink()">Generate Chat Link</button>
+    <p>ChatLink: <a id="chatLink"></a></p>
+  </center>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/uuid/dist/umd/uuidv4.min.js"></script>
   <script>
+    const socket = io.connect();
+
     function generateChatLink() {
-      // Generate a unique chat link (you might want to implement this based on your needs)
-      const chatLink = `https://mychaapp.onrender.com/chat/${generateRandomString()}`;
-      
-      // Display the chat link on the page
+      const roomName = generateRandomString();
+      const chatLink = `http://mychaapp.onrender.com/chat/${roomName}`;
       document.getElementById('chatLink').href = chatLink;
-      document.getElementById('chatLink').textContent = `${chatLink}`;
+      document.getElementById('chatLink').textContent = chatLink;
       document.getElementById('genbtn').textContent = 'ReGenerate Link';
     }
 
     function generateRandomString() {
-      // Generate a random string for the chat link
-      return Math.random().toString(36).substring(7);
+      return Math.random().toString(36).substring(9);
+    }
+
+    function toggleMenu() {
+      const menuItems = document.querySelector('.items');
+      menuItems.classList.toggle('show');
     }
   </script>
 </body>
