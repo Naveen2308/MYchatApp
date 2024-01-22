@@ -134,48 +134,43 @@
 
   </style>
 </head>
-<nav class="top">
-  <a class="fa fa-arrow-left" aria-hidden="true"></a>
-  <div class="name">User</div>
-</nav>
-<div class="content">
-  <!--  <button onclick="generateChatLink()">Generate Chat Link</button> -->
-</div>
-<nav class="bottom">
-  <input class="msg" type="text" id="msg" placeholder="Type a msg"></input>
-  <div class="bottom-div">
-    <a onclick="sendmsg()" class="fa fa-paper-plane" aria-hidden="true"></a>
+<body>
+  <nav class="top">
+    <a class="fa fa-arrow-left" aria-hidden="true"></a>
+    <div class="name">User</div>
+  </nav>
+
+  <div class="content">
+    <!-- Messages will be displayed here -->
   </div>
-</nav>
-<script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
 
-<script>
-     const socket = io();
-    let username = prompt('Enter your username:') || 'UserA';
-   
-    function generateChatLink() {
-  const roomIdentifier = Math.random().toString(36).substring(7); // Generate a random room identifier
-  const chatLink = `${window.location.origin}/chat?room=${roomIdentifier}&user=${username}`;
-  alert(`Share this link with others:\n${chatLink}`);
-}
-    // Load messages from local storage on page load
-    window.onload = () => {
-      const savedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
-      savedMessages.forEach((msg) => {
-        displayMessage(msg.sender, msg.message);
-      });
-    };
+  <nav class="bottom">
+    <input class="msg" type="text" id="msg" placeholder="Type a msg">
+    <div class="bottom-div">
+      <a onclick="sendmsg()" class="fa fa-paper-plane" aria-hidden="true"></a>
+    </div>
+  </nav>
 
+  <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
+
+
+  <script>
+    const socket = io.connect()
+    const username = prompt('Enter your username:') || 'UserA';
+
+    // Placeholder logic for WebSocket connection
+    // You need to replace this with your actual logic for socket.emit and handling server-side events
     socket.on('user joined', (user) => {
       updateJoinedUsersUI(user);
     });
 
-    socket.on('chat message', (data) => {
-      // Display the message
-      displayMessage(data.sender, data.msg);
+    const roomName = window.location.pathname.split('/').pop();
+    socket.emit('room',roomName);
 
-      // Save the message to local storage
-      saveMessageLocally(data);
+    socket.on('chat message', (data) => {
+      console.log(data);
+
+      displayMessage(data.sender, data.msg);
     });
 
     function displayMessage(sender, msg) {
@@ -189,19 +184,16 @@
       content.scrollTop = content.scrollHeight;
     }
 
-    function saveMessageLocally(data) {
-      const savedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
-      savedMessages.push({ sender: data.sender, message: data.msg });
-      localStorage.setItem('chatMessages', JSON.stringify(savedMessages));
-    }
-
     function sendmsg() {
-      const msg = document.getElementById('msg').value;
-      if(msg.length != 0){
-        socket.emit('chat message', { sender: username, msg });
-      document.getElementById('msg').value = '';
+      const msgInput = document.getElementById('msg');
+      const msg = msgInput.value.trim();
+
+      if (msg !== '') {
+        
+        const sender = username; // You can get the actual username dynamically
+        socket.emit('chat message', { roomName, sender, msg });
+        msgInput.value = '';
       }
-      
     }
 
     function updateJoinedUsersUI(user) {
@@ -210,6 +202,6 @@
     }
 
     socket.emit('user joined', username);
-</script>
-  </body>
+  </script>
+</body>
 </html>
