@@ -2,15 +2,7 @@ const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
 const path = require('path');
-const admin = require("firebase-admin");
 
-const serviceAccount = require("./serviceAccountKey.json");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
-
-const db = admin.firestore();
 
 const app = express();
 const server = http.createServer(app);
@@ -23,31 +15,32 @@ app.get('/', (req, res) => {
 });
 
 app.get('/chat/:chatId', (req, res) => {
-  const chatId = req.params.chatId;
   res.sendFile(path.join(__dirname, 'static', 'group.html'));
 });
 
-let connectedUsers = [];
 
-io.on('connection', (socket) => {
-  console.log('a user connected');
 
-  if (connectedUsers.length >= 2) {
-    socket.emit('chat message', { sender: 'System', msg: 'Chat is full. Please try again later.' });
-    socket.disconnect();
-    return;
-  }
+io.sockets.on('connection', (socket) => {
 
-  connectedUsers.push(socket.id);
-
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-    connectedUsers = connectedUsers.filter(user => user !== socket.id);
+  socket.on('room', (roomName) => {
+   
+      socket.join(roomName);
+      console.log(`User joined room: ${roomName}`);
+      
+  
   });
 
-  socket.on('chat message', async (msg) => {
-    io.emit('chat message', msg);
- 
+
+  socket.on('chat message', (data) => {
+    console.log(data);
+    // Use io.to(roomName).emit instead of io.sockets.in(data.roomName).emit
+    console.log(io.sockets.adapter.rooms.has(data.roomName));
+    io.to(data.roomName).emit('chat message', { sender: data.sender, msg: data.msg });
+  });
+  
+
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
   });
 });
 
