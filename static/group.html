@@ -97,6 +97,7 @@
   border-radius: 16px;
   padding: 10px;
   font-size: 20px;
+  text-justify: auto;
 }
 
 .user-msg {
@@ -131,16 +132,136 @@
   align-self: flex-end;
   text-align: right;
 }
+/* Default styles for all screens */
+.bar{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    
+    margin-top: 60px;
+}
+.clickboard {
+  
+  margin: 0 auto;
+  height: 30px;
+  width: 35%;
+  background-color: #cbd5fb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Center text vertically */
+  padding: 8px;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-radius: 16px;
+  position: fixed;
+  z-index: 1;
+}
+
+.clickboard p {
+  font-size: 20px;
+  text-align: center; 
+  position: relative;
+  /* Center text horizontally */
+}
+
+.clickboard i {
+  font-size: 20px;
+  position: relative;
+  margin-left: 20px;
+}
+
+.clickboard .link {
+  background-color: aliceblue;
+  display: flex;
+  align-items: center; /* Center text vertically */
+  justify-content: center; /* Center text horizontally */
+  height: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 16px;
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+/* Mobile view styles */
+@media screen and (max-width: 1226px) {
+  .clickboard {
+    width: 90%;
+    padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+  float: left;
+  margin-top: 20px;
+     /* Full width on mobile */
+  }
+  .clickboard i {
+  font-size: 20px;
+  position: relative;
+  margin-left: 15px;
+}
+  .clickboard p {
+    margin: 0;
+    font-size: 17px; /* Remove margin on mobile */
+  }
+
+  .clickboard .link {
+   
+   padding-left: 10px;
+  padding-right: 10px;
+  }
+}
+@media screen and (max-width: 499px) {
+  .clickboard {
+    margin-top: 20px;
+    padding-left: 10px;
+  padding-right: 10px;
+    float: right;
+    display: flex;
+    padding: 5px;
+    position: fixed;
+    border-radius: 6px;
+     overflow: hidden;
+  }
+  .clickboard i {
+  font-size: 20px;
+  position: relative;
+  margin-left: 5px;
+}
+  .clickboard p {
+    margin: 0;
+     /* Remove margin on mobile */
+  }
+
+  .clickboard .link {
+    height: 35px;
+   padding-left: 10px;
+  padding-right: 10px;
+  }
+}
 
   </style>
 </head>
 <body>
   <nav class="top">
-    <a class="fa fa-arrow-left" aria-hidden="true"></a>
+    <a class="fa fa-arrow-left" onclick="gohome()" aria-hidden="true"></a>
     <div class="name">User</div>
+  
   </nav>
+  <div class="bar">
+  <div class="clickboard">
+    <p>Link:</p>&nbsp;
+    <div class="link">
+      <p id="jsLink"></p>
+    </div>
+    <i class="fa fa-clipboard" aria-hidden="true" onclick="copyLink()"></i>
+  </div>
+  </div>
+    
+
 
   <div class="content">
+  
     <!-- Messages will be displayed here -->
   </div>
 
@@ -158,6 +279,11 @@
     const socket = io.connect()
     const username = prompt('Enter your username:') || 'UserA';
 
+    document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('jsLink').innerHTML = window.location.href;
+    console.log(window.location.href);
+  });
+    
     // Placeholder logic for WebSocket connection
     // You need to replace this with your actual logic for socket.emit and handling server-side events
     socket.on('user joined', (user) => {
@@ -202,6 +328,40 @@
     }
 
     socket.emit('user joined', username);
+
+    function copyLink() {
+      // Get the link element
+      var linkElement = document.getElementById('jsLink');
+
+      // Create a temporary textarea element
+      var textarea = document.createElement('textarea');
+      textarea.value = linkElement.textContent;
+
+      // Append the textarea to the body
+      document.body.appendChild(textarea);
+
+      // Select the text inside the textarea
+      textarea.select();
+      textarea.setSelectionRange(0, 99999); // For mobile devices
+
+      // Copy the selected text to the clipboard
+      document.execCommand('copy');
+
+      // Remove the temporary textarea
+      document.body.removeChild(textarea);
+
+      // Optionally, provide some feedback to the user
+      alert('Link copied to clipboard!');
+    }
+    document.getElementById('msg').addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Prevent the default behavior (form submission)
+      sendmsg(); // Call the sendmsg() function
+    }
+  });
+  function gohome(){
+    window.location.href = './home.html';
+  }
   </script>
 </body>
 </html>
