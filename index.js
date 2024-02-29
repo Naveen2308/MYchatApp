@@ -24,11 +24,11 @@ io.sockets.on('connection', (socket) => {
 
   socket.on('room', (roomName) => {
    
-      socket.join(roomName);
-      console.log(`User joined room: ${roomName}`);
-      
-  
-  });
+    socket.join(roomName);
+    console.log(`User joined room: ${roomName}`);
+    
+
+});
 
 
   socket.on('chat message', (data) => {
