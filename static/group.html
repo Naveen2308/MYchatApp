@@ -4,258 +4,374 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="background.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ 
   <title>grp chat</title>
   <style>
-    i {
-      font-size:30px;
+    *{
+      color: #ffffff;
+      font-family: 'Jost', sans-serif;
     }
-    .name {
-      font-family: 'Lucida Sans';
-      font-size:25px;
+    body{
+      font-family: 'Arial', sans-serif;
+      background-color: #333131;
+      background:
+  linear-gradient(
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.5)
+  ),
+  url('https://e0.pxfuel.com/wallpapers/875/426/desktop-wallpaper-i-whatsapp-background-chat-whatsapp-graffiti.jpg');
+
+     /* background-repeat: no-repeat;
+      background-size: cover;*/
+    
     }
-    img {
-      height:18px;
+      i{
+        font-size:30px;
+      }
+      .name{
+        font-family: 'Lucida Sans';
+        font-size:25px;
+      }
+      img{
+        height:18px;
+      }
+      nav{
+        display:flex;
+        position:fixed;
+        left:0;
+        right:0;
+        background-color: #000000;
+        padding:10px;
+      }
+      .top{
+        top:0;
+        
+        /*box-shadow: 4px 4px 10px #cbd5fb;*/
+      }
+      .top a {
+        /*box-shadow: 4px 4px 10px #9dceff inset;*/
+        color: rgb(0, 0, 0);
+        padding: 10px;
+        margin-right: 8px;
+        border-radius: 20px;
+        text-decoration: none;
+        background-color: #ffffff;
+      }
+      .bottom{
+        bottom:0;
+      }
+      .dp img {
+        border-radius:50%;
+        position:absolute;
+        height:30px;
+        top:7px;
+        left:8px;
+      }
+      .dp {
+        margin:5px 20px 5px 5px;
+      }
+      .icon {
+        display:grid;
+        grid-template-columns: 35px 35px 32px;
+        position: absolute;
+        right:15px;
+      }
+      .bottom {
+        display:flex;
+        grid-template-columns: 70px 1fr 70px;
+        /*box-shadow: 4px -4px 10px #cbd5fb;*/
+      }
+      .bottom input {
+        display: flex;
+        width: 100%;
+        border-radius: 20px;
+        padding: 7px;
+        font-size: 18px;
+        outline: none;
+        text-align: left;
+      }
+      .msg {
+        border:none;
+        border-radius:5px;
+        color: #000000;
+      }
+      .bottom a,.down {
+        
+        margin-left: 8px;
+        padding: 13px;
+        border-radius: 25px;
+        text-decoration: none;
+        color:rgb(255, 255, 255);
+      }
+      .bottom a:hover,.down:hover {
+        border-radius: 25px;
+        background-color: #ffffff;
+        color: #000000;
+      }
+      .content {
+        margin-top: 60px;
+        margin-bottom: 60px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+      }
+      .message {
+        margin-bottom: 8px;
+        max-width: 70%;
+        border-radius: 16px;
+        padding: 10px;
+        font-size: 20px;
+      }
+      .down{
+        position:fixed;
+        bottom:80px;
+        right:20px;
+        padding:2.5px 5px;
+        background-color: rgb(0, 0, 0);
+        border-radius: 50%;
+      }
+      /*.down a:hover{
+        color: #000000;
+      }
+      .down i:hover{
+        color: #000000;
+      }*/
+      .fa-arrow-down:hover {
+    color: rgb(0, 0, 0); /* Change color on hover */
+}
+
+/* Add hover effect to the down arrow link */
+.down:hover {
+    background-color: #ffffff; /* Change background color on hover */
+    color: #000000; /* Change text color on hover */
+}
+      .down:hover{
+        position:fixed;
+        bottom:80px;
+        right:20px;
+        padding:2.5px 5px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 50%;
+        color: #000000;
+      }
+      
+
+      .user-msg {
+        margin-bottom: 8px;
+        max-width: 70%;
+        border-radius: 16px;
+        padding: 10px;
+      }
+
+      .user-a-msg {
+        background-color: #000000; /* Example color for user A's messages */
+        align-self: flex-end;
+        text-align: right;
+        color: white;
+      }
+
+      .user-b-msg {
+        background-color: #000000; /* Example color for user B's messages */
+        align-self: flex-start;
+        text-align: left;
+        color: white;
+      }
+
+      /* Add styles to make user B's messages appear on the left */
+      .user-b-msg .message {
+        background-color: #000000; /* Example color for user B's messages */
+        align-self: flex-start;
+        text-align: left;
+        color: white;
+      }
+
+      /* Add styles to make user A's messages appear on the right */
+      .user-a-msg .message {
+        background-color: #000000; /* Example color for user A's messages */
+        align-self: flex-end;
+        text-align: right;
+        color: white;
+      }
+
+    /* Default styles for all screens */
+    .bar{
+      width: 100%;
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        position: -webkit-sticky;
+        position: fixed;
+       
+        
+        
     }
-    nav {
-      display:flex;
-      position:fixed;
-      left:0;
-      right:0;
-      background-color: rgb(146, 173, 255);
-      padding:10px;
+    .clickboard {
+      color: black;
+      margin: 0 auto;
+      height: 30px;
+      width: 35%;
+      background-color: #424141;
+      display: flex;
+      justify-content: space-between;
+      align-items: center; /* Center text vertically */
+      padding: 8px;
+      padding-left: 30px;
+      padding-right: 30px;
+      border-radius: 16px;
+      position: fixed;
+      z-index: 1;
     }
-    .top {
-      top:0;
-      box-shadow: 4px 4px 10px #cbd5fb;
+
+    .bar p {
+      font-size: 20px;
+      text-align: center; 
+      position: relative;
+      /* Center text horizontally */
+      background-color: #fefefe;
+      color: #000000;
+      border-radius: 6px;
     }
-    .top a {
-      box-shadow: 4px 4px 10px #9dceff inset;
-      padding: 7px;
-      margin-right: 8px;
-      border-radius: 20px;
+
+    .bar i {
+      font-size: 20px;
+      background-color: rgb(0, 0, 0);
+      text-align: center;
+      justify-content: center;
     }
-    .bottom {
-      bottom:0;
-    }
-    .dp img {
-      border-radius:50%;
-      position:absolute;
-      height:30px;
-      top:7px;
-      left:8px;
-    }
-    .dp {
-      margin:5px 20px 5px 5px;
-    }
-    .icon {
-      display:grid;
-      grid-template-columns: 35px 35px 32px;
-      position: absolute;
-      right:15px;
-    }
-    .bottom {
-      display:flex;
-      grid-template-columns: 70px 1fr 70px;
-      box-shadow: 4px -4px 10px #cbd5fb;
-    }
-    .bottom input {
+
+    .clickboard .link {
+      background-color: rgb(255, 255, 255);
+      display: flex;
+      align-items: center; /* Center text vertically */
+      justify-content: center; /* Center text horizontally */
+      height: 40px;
+      padding-left: 20px;
+      padding-right: 20px;
+      border-radius: 16px;
+      position: relative;
       display: flex;
       width: 100%;
-      border-radius: 20px;
-      padding: 10px;
-      font-size: 18px;
-      outline: none;
+      
     }
-    .msg {
-      border:none;
-      border-radius:5px;
+
+    /* Mobile view styles */
+    @media screen and (max-width: 1226px) {
+      .clickboard {
+        width: 90%;
+        padding-left: 10px;
+      padding-right: 10px;
+      border-radius: 10px;
+      float: left;
+        /* Full width on mobile */
+      }
+      .clickboard i {
+      font-size: 20px;
+      position: relative;
+      margin-left: 15px;
     }
-    .bottom a {
-      box-shadow: 4px 4px 10px #9dceff inset;
-      margin-left: 8px;
-      padding: 13px;
-      border-radius: 25px;
+      .clickboard p {
+        margin: 0;
+        font-size: 17px; /* Remove margin on mobile */
+      }
+
+      .clickboard .link {
+      
+      padding-left: 10px;
+      padding-right: 10px;
+      }
     }
-    .bottom a:hover {
-      padding: 13px;
-      border-radius: 25px;
-      background-color: #cbd5fb;
+    @media screen and (max-width: 499px) {
+      .clickboard {
+        
+        padding-left: 10px;
+        padding-right: 10px;
+        float: right;
+        display: flex;
+        padding: 5px;
+        position: sticky;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .clickboard i {
+        font-size: 20px;
+        position: relative;
+        margin-left: 5px;
+      }
+      .clickboard p {
+        margin: 0;
+        /* Remove margin on mobile */
+      }
+      .clickboard .link {
+        height: 35px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
     }
-    .content {
-      margin-top: 60px;
-      margin-bottom: 60px;
-      height: auto;
-      display: flex;
-      flex-direction: column;
-      overflow-y: auto;
+    .popup {
+      display: none; /* Hide the popup by default */
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+      z-index: 9999; /* Ensure the popup is on top of other elements */
+      overflow: auto; /* Enable scrolling if content overflows */
     }
-   /* Your existing styles here */
 
-.message {
-  margin-bottom: 8px;
-  max-width: 70%;
-  border-radius: 16px;
-  padding: 10px;
-  font-size: 20px;
-  text-justify: auto;
-}
+    .popup-content {
+      background-color: #fefefe; /* Popup background color */
+      margin: 15% auto; /* Center the popup vertically and horizontally */
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%; /* Set the width of the popup */
+      max-width: 400px; /* Maximum width of the popup */
+      border-radius: 10px; /* Rounded corners */
+      color: #000000;
+    }
+    .popup-content button{
+      background-color: #000000;
+      color: #fefefe;
+    }
+    .popup-content input{
+      color: #000000;
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
 
-.user-msg {
-  margin-bottom: 8px;
-  max-width: 70%;
-  border-radius: 16px;
-  padding: 10px;
-}
-
-.user-a-msg {
-  background-color: #cbd5fb; /* Example color for user A's messages */
-  align-self: flex-end;
-  text-align: right;
-}
-
-.user-b-msg {
-  background-color: #cbd5fb; /* Example color for user B's messages */
-  align-self: flex-start;
-  text-align: left;
-}
-
-/* Add styles to make user B's messages appear on the left */
-.user-b-msg .message {
-  background-color: #cbd5fb; /* Example color for user B's messages */
-  align-self: flex-start;
-  text-align: left;
-}
-
-/* Add styles to make user A's messages appear on the right */
-.user-a-msg .message {
-  background-color: #cbd5fb; /* Example color for user A's messages */
-  align-self: flex-end;
-  text-align: right;
-}
-/* Default styles for all screens */
-.bar{
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    
-    margin-top: 60px;
-}
-.clickboard {
-  
-  margin: 0 auto;
-  height: 30px;
-  width: 35%;
-  background-color: #cbd5fb;
-  display: flex;
-  justify-content: space-between;
-  align-items: center; /* Center text vertically */
-  padding: 8px;
-  padding-left: 30px;
-  padding-right: 30px;
-  border-radius: 16px;
-  position: fixed;
-  z-index: 1;
-}
-
-.clickboard p {
-  font-size: 20px;
-  text-align: center; 
-  position: relative;
-  /* Center text horizontally */
-}
-
-.clickboard i {
-  font-size: 20px;
-  position: relative;
-  margin-left: 20px;
-}
-
-.clickboard .link {
-  background-color: aliceblue;
-  display: flex;
-  align-items: center; /* Center text vertically */
-  justify-content: center; /* Center text horizontally */
-  height: 40px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 16px;
-  position: relative;
-  display: flex;
-  width: 100%;
-}
-
-/* Mobile view styles */
-@media screen and (max-width: 1226px) {
-  .clickboard {
-    width: 90%;
-    padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 10px;
-  float: left;
-  margin-top: 20px;
-     /* Full width on mobile */
-  }
-  .clickboard i {
-  font-size: 20px;
-  position: relative;
-  margin-left: 15px;
-}
-  .clickboard p {
-    margin: 0;
-    font-size: 17px; /* Remove margin on mobile */
-  }
-
-  .clickboard .link {
-   
-   padding-left: 10px;
-  padding-right: 10px;
-  }
-}
-@media screen and (max-width: 499px) {
-  .clickboard {
-    margin-top: 20px;
-    padding-left: 10px;
-  padding-right: 10px;
-    float: right;
-    display: flex;
-    padding: 5px;
-    position: fixed;
-    border-radius: 6px;
-     overflow: hidden;
-  }
-  .clickboard i {
-  font-size: 20px;
-  position: relative;
-  margin-left: 5px;
-}
-  .clickboard p {
-    margin: 0;
-     /* Remove margin on mobile */
-  }
-
-  .clickboard .link {
-    height: 35px;
-   padding-left: 10px;
-  padding-right: 10px;
-  }
-}
-
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
   </style>
 </head>
-<body>
+<body onload="displayUsernamePopup()" >
+  
   <nav class="top">
     <a class="fa fa-arrow-left" onclick="gohome()" aria-hidden="true"></a>
     <div class="name">User</div>
   
   </nav>
+
+  
   <div class="bar">
-  <div class="clickboard">
-    <p>Link:</p>&nbsp;
-    <div class="link">
+  
+    <p>ChatId:</p>
+    
       <p id="jsLink"></p>
-    </div>
-    <i class="fa fa-clipboard" aria-hidden="true" onclick="copyLink()"></i>
-  </div>
   </div>
     
 
@@ -268,21 +384,34 @@
   <nav class="bottom">
     <input class="msg" type="text" id="msg" placeholder="Type a msg">
     <div class="bottom-div">
-      <a onclick="sendmsg()" class="fa fa-paper-plane" aria-hidden="true"></a>
+      <a herf="#end" onclick="sendmsg()" class="fa fa-paper-plane" aria-hidden="true"></a>
     </div>
   </nav>
+  <a href="#end" class="down"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
+  <div id="end"></div>
 
+  <div id="usernamePopup" class="popup">
+    <div class="popup-content">
+      <h2>Enter Username:</h2>
+      <input type="text" id="usernameInput" placeholder="Enter username">
+      <button onclick="submitUsername()">Submit</button>
+    </div>
+  </div>
   <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
-
-
   <script>
-    const socket = io.connect()
-    const username = prompt('Enter your username:') || 'UserA';
+    const socket = io.connect();
+    let username;
 
     document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('jsLink').innerHTML = window.location.href;
+    document.getElementById('jsLink').innerHTML = window.location.pathname.split('/').pop();
     console.log(window.location.href);
   });
+
+  function submitUsername() {
+    username = document.getElementById('usernameInput').value; // Assign value to the global variable
+    console.log('Username submitted:', username);
+    closeUsernamePopup();
+}
     
     // Placeholder logic for WebSocket connection
     // You need to replace this with your actual logic for socket.emit and handling server-side events
@@ -293,34 +422,44 @@
     const roomName = window.location.pathname.split('/').pop();
     socket.emit('room',roomName);
 
+
+    
+
+    function displayMessage(sender, msg) {
+  const newmsg = document.createElement('div');
+  newmsg.classList.add('message', 'user-msg');
+  
+  // Construct HTML with sender name in bold
+  const messageHTML = `<strong>${sender}</strong>: ${msg}`;
+  
+  // Set innerHTML to include HTML with sender name in bold
+  newmsg.innerHTML = messageHTML;
+  
+  // Add classes based on sender
+  newmsg.classList.add(sender.toLowerCase() === username.toLowerCase() ? 'user-a-msg' : 'user-b-msg');
+
+  const content = document.querySelector('.content');
+  content.appendChild(newmsg);
+  content.scrollTop = content.scrollHeight;
+}
     socket.on('chat message', (data) => {
       console.log(data);
 
       displayMessage(data.sender, data.msg);
     });
+  
 
-    function displayMessage(sender, msg) {
-      const newmsg = document.createElement('div');
-      newmsg.classList.add('message', 'user-msg');
-      newmsg.textContent = `${sender}: ${msg}`;
-      newmsg.classList.add(sender.toLowerCase() === username.toLowerCase() ? 'user-a-msg' : 'user-b-msg');
+function sendmsg() {
+  const msgInput = document.getElementById('msg');
+  const msg = msgInput.value.trim();
 
-      const content = document.querySelector('.content');
-      content.appendChild(newmsg);
-      content.scrollTop = content.scrollHeight;
-    }
+  if (msg !== '') {
+    const sender = username; // You can get the actual username dynamically
+    socket.emit('chat message', { roomName, sender, msg });
+    msgInput.value = '';
+  }
+}
 
-    function sendmsg() {
-      const msgInput = document.getElementById('msg');
-      const msg = msgInput.value.trim();
-
-      if (msg !== '') {
-        
-        const sender = username; // You can get the actual username dynamically
-        socket.emit('chat message', { roomName, sender, msg });
-        msgInput.value = '';
-      }
-    }
 
     function updateJoinedUsersUI(user) {
       const usersList = document.querySelector('.joined-users');
@@ -360,8 +499,55 @@
     }
   });
   function gohome(){
-    window.location.href = './home.html';
+    window.location.href = 'http://localhost:3000/home.html';
   }
+  document.addEventListener("DOMContentLoaded", function() {
+    // Select the down arrow icon
+    var downArrow = document.querySelector('.down');
+
+    // Add click event listener to the down arrow icon
+    downArrow.addEventListener('click', function(event) {
+        // Prevent default anchor click behavior
+        event.preventDefault();
+
+        // Get the target element's position
+        var targetElement = document.getElementById('end');
+        var targetOffsetTop = targetElement.getBoundingClientRect().top;
+
+        // Scroll to the target element's position smoothly
+        window.scrollTo({
+            top: window.pageYOffset + targetOffsetTop,
+            behavior: 'smooth'
+        });
+    });
+});
+
+function openPasswordPopup() {
+      document.getElementById('passwordPopup').style.display = 'block';
+    }
+
+    // Function to close the password popup
+    function closePasswordPopup() {
+      document.getElementById('passwordPopup').style.display = 'none';
+    }
+
+
+  
+function openUsernamePopup() {
+    document.getElementById('usernamePopup').style.display = 'block';
+  }
+
+  function closeUsernamePopup() {
+    document.getElementById('usernamePopup').style.display = 'none';
+  }
+  function displayUsernamePopup() {
+    // Get the usernamePopup element
+    var usernamePopup = document.getElementById('usernamePopup');
+
+    // Display the popup
+    usernamePopup.style.display = 'block';
+  }
+  
   </script>
 </body>
 </html>
