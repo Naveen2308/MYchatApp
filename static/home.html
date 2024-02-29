@@ -4,12 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Chat Home Page</title>
   <style>
+    *{
+      color: #ffffff;
+      font-family: 'Jost', sans-serif;
+    }
     body {
       font-family: 'Arial', sans-serif;
-      background-color: #f4f4f4;
+      background-color: #000000;
       margin: 0;
       padding: 0;
       display: flex;
@@ -22,23 +29,46 @@
     .navbar {
       margin: 0 !important;
       width: 100% !important;
-      background-color: #cbd5fb !important;
+      background-color: #000000 !important;
       padding-left: 20px !important;
       padding-right: 20px !important;
+      color: #ffffff !important;
+      
+    }
+    .navbar-toggler-icon {
+    background-image: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"%3e%3cpath stroke="rgba(225, 225, 225, 0.75)" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22" /%3e%3c/svg%3e') !important;
+    border-color: white !important;
+      }
+    .navbar-brand{
+      color: #ffffff !important;
+      font-size: 25px;
     }
 
+    .nav-item a{
+      color: #ffffff !important;
+      font-size: 20px;
+      font-family: 'Jost', sans-serif;
+    }
+    .nav-item a:hover{
+      color: #000000 !important;
+      font-size: 20px;
+      background-color: #ffffff;
+      border-radius: 6px;
+    }
     button {
       padding: 15px;
       font-size: 16px;
-      background-color: #cbd5fb;
-      color: #fff;
+      background-color: #ffffff;
+      color: #000000;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      margin-bottom: 20px;
     }
 
     button:hover {
-      background-color: #cbd5fb;
+      background-color: #413f3f;
+      color: white;
     }
     .con {
   display: flex;
@@ -46,12 +76,54 @@
   align-items: center;
   text-align: center; /* Optionally, if you want the text centered */
   margin-top: 20px; /* Add some top margin for better spacing */
+ margin-bottom: 10px;
+ height: auto;
 }
+
+.link {
+     width: 320px;
+     height: 25px;
+     background-color: rgb(255, 255, 255);
+    text-align: center; /* Center text within the link */
+    justify-content: center;
+     align-items: center;
+    border-radius: 10px; /* Added border-radius for a rounded appearance */
+    margin-top: 10px; /* Added top margin for spacing */
+    margin-bottom: 5px;
+    color: #000000;
+        }
+.link p{
+  color: #000000;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.link a{
+  background-color: white;
+
+
+}
+.content{
+  margin-top: 40px;
+  color: #ffffff;
+}
+
+.footer {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 20px 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
   </style>
 </head>
 <body>
   <nav class="navbar navbar-expand-md navbar-light bg-light">
-    <a href="#" class="navbar-brand">LoGo</a>
+    <a href="#" class="navbar-brand"><img src="Screenshot from 2024-01-24 20-34-16.png" width="100px" width=""></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -70,13 +142,36 @@
     </div>
   </nav>
   <div class="con">
+    <div class="body-con">
     <h1>Connect Unbounded: Link and Chat, No Credentials Attached.</h1>
     
     <center>
-    <button id="genbtn" onclick="generateChatLink()">Generate Chat Link</button>
-    <p>ChatLink: <a id="chatLink"></a></p>
+      <div class="content">
+        <h3>Create Room</h3>
+    <button id="genbtn" onclick="generateChatLink()">Generate ChatId</button>
+    <div class="link">
+  
+  </div>
+  <h3>Or</h3>
+  <h3>Join in Room</h3>
+      <form id="joininroom">
+        <input type="text" style="color: #000000;" id="roomid" placeholder="Enter Room Id">
+        <input type="submit" style="background-color: #ffffff;color: #000000;border-radius: 6px;"  value="Join">
+      </form>
+    </div>
   </center>
   </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <p>&copy; 2024 letsgossip. All Rights Reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
@@ -85,10 +180,11 @@
     const socket = io.connect();
 
     function generateChatLink() {
+      document.querySelector(".link").innerHTML = "";
       const roomName = generateRandomString();
-      const chatLink = `http://mychaapp.onrender.com/chat/${roomName}`;
-      document.getElementById('chatLink').href = chatLink;
-      document.getElementById('chatLink').textContent = chatLink;
+      const chatLink = `http://localhost:3000/chat/${roomName}`;
+      document.querySelector(".link").innerHTML  += chatLink;
+     
       document.getElementById('genbtn').textContent = 'ReGenerate Link';
     }
 
@@ -100,6 +196,20 @@
       const menuItems = document.querySelector('.items');
       menuItems.classList.toggle('show');
     }
+
+
+    document.getElementById("joininroom").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Get the value entered in the roomid input field
+    var roomName = document.getElementById("roomid").value;
+
+    // Emit a 'room' event to join the specified room
+    window.location.href = `/chat/${roomName}`;
+
+   
+  });
+
   </script>
 </body>
 </html>
