@@ -123,7 +123,7 @@
 </head>
 <body>
   <nav class="navbar navbar-expand-md navbar-light bg-light">
-    <a href="#" class="navbar-brand"><img src="Screenshot from 2024-01-24 20-34-16.png" width="100px" width=""></a>
+    <a href="#" class="navbar-brand"><img src="https://i.postimg.cc/C1kDKT0G/Screenshot-from-2024-01-24-20-34-16.png" width="100px" width=""></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -143,7 +143,7 @@
   </nav>
   <div class="con">
     <div class="body-con">
-    <h1>Connect Unbounded: Link and Chat, No Credentials Attached.</h1>
+    <h1>Connect Unbounded: Make ID and Chat, No Credentials Attached.</h1>
     
     <center>
       <div class="content">
@@ -163,11 +163,13 @@
   </div>
 </div>
 
+
+
 <footer class="footer">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
-        <p>&copy; 2024 letsgossip. All Rights Reserved.</p>
+        <p>&copy; 2024 Helllo. All Rights Reserved.</p>
       </div>
     </div>
   </div>
@@ -182,7 +184,7 @@
     function generateChatLink() {
       document.querySelector(".link").innerHTML = "";
       const roomName = generateRandomString();
-      const chatLink = `https://mychaapp.onrender.com/chat/${roomName}`;
+      const chatLink = `http://localhost:3000/chat/${roomName}`;
       document.querySelector(".link").innerHTML  += chatLink;
      
       document.getElementById('genbtn').textContent = 'ReGenerate Link';
@@ -205,7 +207,7 @@
     var roomName = document.getElementById("roomid").value;
 
     // Emit a 'room' event to join the specified room
-    window.location.href = `https://mychaapp.onrender.com/chat/${roomName}`;
+    window.location.href = `http://localhost:3000/chat/${roomName}`;
 
    
   });
