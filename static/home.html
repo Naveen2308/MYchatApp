@@ -182,7 +182,7 @@
     function generateChatLink() {
       document.querySelector(".link").innerHTML = "";
       const roomName = generateRandomString();
-      const chatLink = `http://localhost:3000/chat/${roomName}`;
+      const chatLink = `https://mychaapp.onrender.com/chat/${roomName}`;
       document.querySelector(".link").innerHTML  += chatLink;
      
       document.getElementById('genbtn').textContent = 'ReGenerate Link';
