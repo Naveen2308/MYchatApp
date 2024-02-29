@@ -90,7 +90,7 @@
       .bottom input {
         display: flex;
         width: 100%;
-        border-radius: 20px;
+       
         padding: 7px;
         font-size: 18px;
         outline: none;
@@ -98,19 +98,19 @@
       }
       .msg {
         border:none;
-        border-radius:5px;
+        border-radius: 10px;
         color: #000000;
       }
       .bottom a,.down {
         
         margin-left: 8px;
         padding: 13px;
-        border-radius: 25px;
+        border-radius: 6px;
         text-decoration: none;
         color:rgb(255, 255, 255);
       }
       .bottom a:hover,.down:hover {
-        border-radius: 25px;
+        border-radius: 6px;
         background-color: #ffffff;
         color: #000000;
       }
@@ -356,13 +356,22 @@
       text-decoration: none;
       cursor: pointer;
     }
+    .green-dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgb(0, 255, 0);
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px; /* Adjust as needed */
+}
+
   </style>
 </head>
 <body onload="displayUsernamePopup()" >
   
   <nav class="top">
     <a class="fa fa-arrow-left" onclick="gohome()" aria-hidden="true"></a>
-    <div class="name">User</div>
+    <div class="name"></div>
   
   </nav>
 
@@ -379,16 +388,17 @@
   <div class="content">
   
     <!-- Messages will be displayed here -->
+    <div id="end"></div>
   </div>
 
   <nav class="bottom">
     <input class="msg" type="text" id="msg" placeholder="Type a msg">
     <div class="bottom-div">
-      <a herf="#end" onclick="sendmsg()" class="fa fa-paper-plane" aria-hidden="true"></a>
+      <a  onclick="sendmsg()" class="fa fa-paper-plane" aria-hidden="true"></a>
     </div>
   </nav>
   <a href="#end" class="down"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
-  <div id="end"></div>
+ 
 
   <div id="usernamePopup" class="popup">
     <div class="popup-content">
@@ -408,9 +418,17 @@
   });
 
   function submitUsername() {
-    username = document.getElementById('usernameInput').value; // Assign value to the global variable
-    console.log('Username submitted:', username);
-    closeUsernamePopup();
+    username = document.getElementById('usernameInput').value; 
+    if(username != ""){
+      console.log('Username submitted:', username);
+      var nameDiv = document.querySelector('.name');
+      nameDiv.textContent = username;
+      var greenDot = document.createElement('span');
+      greenDot.classList.add('green-dot');
+      nameDiv.appendChild(greenDot);
+      closeUsernamePopup();
+    }
+    
 }
     
     // Placeholder logic for WebSocket connection
@@ -424,30 +442,39 @@
 
 
     
-
-    function displayMessage(sender, msg) {
-  const newmsg = document.createElement('div');
-  newmsg.classList.add('message', 'user-msg');
-  
-  // Construct HTML with sender name in bold
-  const messageHTML = `<strong>${sender}</strong>: ${msg}`;
-  
-  // Set innerHTML to include HTML with sender name in bold
-  newmsg.innerHTML = messageHTML;
-  
-  // Add classes based on sender
-  newmsg.classList.add(sender.toLowerCase() === username.toLowerCase() ? 'user-a-msg' : 'user-b-msg');
-
-  const content = document.querySelector('.content');
-  content.appendChild(newmsg);
-  content.scrollTop = content.scrollHeight;
+    function scrollToBottom() {
+    var content = document.querySelector('.content');
+    content.scrollTop = content.scrollHeight;
 }
-    socket.on('chat message', (data) => {
-      console.log(data);
 
-      displayMessage(data.sender, data.msg);
-    });
+
+
+// Function to display a new message and scroll to the bottom
+function displayAndScrollMessage(sender, msg) {
+    // Display the message
+    const newmsg = document.createElement('div');
+    newmsg.classList.add('message', 'user-msg');
   
+    // Construct HTML with sender name in bold
+    const messageHTML = `<strong>${sender}</strong>: ${msg}`;
+  
+    // Set innerHTML to include HTML with sender name in bold
+    newmsg.innerHTML = messageHTML;
+  
+    // Add classes based on sender
+    newmsg.classList.add(sender.toLowerCase() === username.toLowerCase() ? 'user-a-msg' : 'user-b-msg');
+
+    const content = document.querySelector('.content');
+    content.appendChild(newmsg);
+
+    // Scroll the new message into view
+    newmsg.scrollIntoView({ behavior: 'smooth', block: 'end' });
+}
+
+// Update the socket event listener for receiving new messages
+socket.on('chat message', (data) => {
+    displayAndScrollMessage(data.sender, data.msg);
+});
 
 function sendmsg() {
   const msgInput = document.getElementById('msg');
@@ -457,7 +484,9 @@ function sendmsg() {
     const sender = username; // You can get the actual username dynamically
     socket.emit('chat message', { roomName, sender, msg });
     msgInput.value = '';
+    
   }
+  window.location.href = "#end";
 }
 
 
@@ -547,7 +576,21 @@ function openUsernamePopup() {
     // Display the popup
     usernamePopup.style.display = 'block';
   }
-  
+  function adjustScrollPosition() {
+    var content = document.querySelector('.content');
+    var originalScrollHeight = content.scrollHeight;
+
+    window.addEventListener('resize', function() {
+        var newScrollHeight = content.scrollHeight;
+        if (newScrollHeight < originalScrollHeight) {
+            // Keyboard is opened
+            content.scrollTop += originalScrollHeight - newScrollHeight;
+        }
+    });
+}
+
+// Call the function to adjust scroll position
+adjustScrollPosition();
   </script>
 </body>
 </html>
